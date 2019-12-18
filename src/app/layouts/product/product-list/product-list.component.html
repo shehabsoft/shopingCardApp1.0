@@ -1,0 +1,103 @@
+<br>
+<div class="container">
+  <div class="row"  >
+    <div class="col-sm">
+      <div class="float-right">
+        <button type="button"  class="btn btn-primary waves-light" data-toggle="modal" data-target="#exampleModalLong">
+         +
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="brand_select">By Brands:</label>
+        <select class="form-control" name="" id="brand_select" [(ngModel)]="selectedBrand">
+          <option *ngFor="let brand of brands" [ngValue]="brand">{{brand}}</option>
+        </select>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">SUEZ</li>
+        <li class="list-group-item">SUEZ CANAL </li>
+        <li class="list-group-item">ASWAN</li>
+      </ul>
+    </div>
+    <div class="col-md-9">
+      <div class="container">
+        <app-card-loader [loop]="3" [height]="800" *ngIf="loading"></app-card-loader>
+        <div class="row" *ngIf="!loading">
+          <!-- List of Products -->
+          <div class="col-sm-4 mb-2" *ngFor="let product of productService.products | filterByBrand: selectedBrand | paginate: { itemsPerPage: 6, currentPage: page }">
+            <div class="item">
+              <div class=" mb-r">
+                <!--Card-->
+                <div class="card card-cascade wider">
+                  <!--Card image-->
+                  <a [routerLink]="['/products/product', product.id]">
+                    <div class="view overlay hm-white-slight">
+                      <img [src]="product.img_url" class="img-fluid" alt="" width="360px" height="640px">
+                      <a>
+                        <div class="mask waves-effect waves-light" mdbRippleRadius></div>
+                      </a>
+                    </div>
+                  </a>
+                  <!--/.Card image-->
+                  <!--Card content-->
+                  <div class="card-body text-center no-padding">
+                    <!--Category & Title-->
+                    <a class="text-muted">
+                      <h5>{{ product.name_ar }}</h5>
+                    </a>
+                    <p class="card-title">
+                      <strong>
+                        <a [routerLink]="['/products/product', product.id]" routerLinkActive="router-link-active">
+                          {{
+                          product.productName
+                          }}
+                        </a>
+                      </strong>
+                    </p>
+                    <!--Description-->
+                    <p class="card-text">
+                      {{ product.name_ar }}
+                    </p>
+                    <!--Card footer-->
+                    <div class="card-footer">
+                      <span class="left">EGP {{ product.price }}</span>
+                      <span class="right">
+                        <a placement="top" mdbTooltip="Add to Wishlist" container="body" (click)="addFavourite(product)">
+                          <i class="fa fa-heart"></i>
+                        </a>
+                        <a placement="top" mdbTooltip="Add to Cart" container="body" (click)="addToCart(product)">
+                          <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <!-- <a placement="top" mdbTooltip="Remove Product" container="body" *ngIf="authService.isAdmin()"
+        (click)="removeProduct(product.id)">
+       <i class="fa fa-trash"></i>
+     </a>
+        -->
+                        <a placement="top" mdbTooltip="Remove Product" container="body"  
+                           (click)="removeProduct(product.id)">
+                          <i class="fa fa-trash"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                  <!--/.Card content-->
+                </div>
+                <!--/.Card-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div class="text-center mt-3">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+      <app-add-product></app-add-product>
+    </div>
+    </div>
+  </div>
+
