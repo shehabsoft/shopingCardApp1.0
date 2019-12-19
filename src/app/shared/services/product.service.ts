@@ -57,6 +57,7 @@ export class ProductService {
         
       return this.productsObs;
   }
+ 
 
   createProduct1(data: ProductF): Observable<ProductF> {
     console.log("Before Creation")
@@ -69,6 +70,9 @@ export class ProductService {
         a = JSON.parse(localStorage.getItem('item_list')) || [];
         a.push(data);
         localStorage.setItem('item_list', JSON.stringify(a));
+        this.getProducts().subscribe((heros) => {
+          this.products = heros
+        });
       }
       )
     );
@@ -100,7 +104,14 @@ export class ProductService {
       const url = `http://localhost:8090/Product/${key}`;
 
       return this.http.delete<Product>(url, httpOptions).pipe(
-        tap(_ => console.log(`deleted product id=${key}`))
+        tap(_ => {
+
+          console.log(`deleted product id=${key}`);
+
+          this.getProducts().subscribe((heros) => {
+            this.products = heros
+          });
+        })
         
       );
 	}

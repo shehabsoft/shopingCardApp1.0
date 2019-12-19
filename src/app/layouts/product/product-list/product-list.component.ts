@@ -57,6 +57,7 @@ export class ProductListComponent implements OnInit{
         (hero) => {
           console.log(hero);
           toastr.success('product  is Deleted successfully', 'Product Deletion');
+          this.getAllProducts();
         }
       );
 	}
