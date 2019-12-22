@@ -1,11 +1,17 @@
 import { Injectable } from "@angular/core";
 import * as firebase from "firebase/app";
 import { Observable } from "rxjs";
+import { catchError, tap, map } from 'rxjs/operators';
 import { User } from "../models/user";
 import { AngularFireAuth } from "angularfire2/auth";
 import { Router } from "@angular/router";
 import { UserService } from "./user.service";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
+const userApiUrl = "http://127.0.0.1:8090/User/";
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 @Injectable()
 export class AuthService {
   user: Observable<firebase.User>;
@@ -13,7 +19,7 @@ export class AuthService {
   loggedUser;
   dbUser;
   constructor(
-    private firebaseAuth: AngularFireAuth,
+    private firebaseAuth: AngularFireAuth, private http: HttpClient,
     private router: Router,
     private userService: UserService
   ) {
@@ -36,7 +42,21 @@ export class AuthService {
       }
     });
   }
+  userLogin: User = new User;
+  signIn(user: User): Observable<User> {
+    console.log("calling Backend Sign In ");
+    this.userLogin = user;
+    const url = userApiUrl + "signIn/";
+    return this.http.post<User>(url, user, httpOptions).pipe(
+      tap(herso => console.log(herso),
+        err => console.log(err))
+     
 
+
+    );
+  
+    
+  }
   isLoggedIn(): boolean {
     if (this.userDetails !== null) {
       return true;
@@ -64,7 +84,7 @@ export class AuthService {
       if (user != null) {
         loggedUser.$key = user.uid;
         loggedUser.userName = user.displayName;
-        loggedUser.emailId = user.email;
+        loggedUser.email = user.email;
         loggedUser.phoneNumber = user.phoneNumber;
         loggedUser.avatar = user.photoURL;
         loggedUser.isAdmin = this.dbUser["isAdmin"];

@@ -41,7 +41,7 @@ export class ShippingDetailsComponent implements OnInit {
 	updateUserDetails(form: NgForm) {
 		const data = form.value;
       console.log(form);
-		data['emailId'] = this.userDetails.emailId;
+		data['emailId'] = this.userDetails.email;
 		data['userId'] = this.userDetails.$key;
 		const products = [];
 

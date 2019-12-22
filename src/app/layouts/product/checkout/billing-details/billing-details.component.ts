@@ -40,7 +40,7 @@ export class BillingDetailsComponent implements OnInit {
 	updateUserDetails(form: NgForm) {
 		const data = form.value;
 
-		data['emailId'] = this.userDetails.emailId;
+		data['emailId'] = this.userDetails.email;
 		data['userId'] = this.userDetails.$key;
 		let totalPrice = 0;
 		const products = [];

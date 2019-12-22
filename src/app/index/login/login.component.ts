@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 		emailId: "",
 		loginPassword: ""
 	};
-
+  user1: User = new User;
 	errorInUserCreate = false;
 	errorMessage: any;
 	createUser;
@@ -64,23 +64,27 @@ export class LoginComponent implements OnInit {
 			});
 	}
 
-	signInWithEmail(userForm: NgForm) {
-		this.authService
-			.signInRegular(userForm.value["emailId"], userForm.value["loginPassword"])
-			.then((res) => {
-				this.toastService.success("Authentication Success", "Logging in please wait");
+  signInWithEmail(userForm: NgForm) {
+    console.log("Being SSSS Login ");
+    this.user1.email = userForm.value["emailId"];
+    this.user1.password = userForm.value["loginPassword"];
+    console.log("calling backend");
+    this.authService
+      .signIn(this.user1)
+      .subscribe((res) => {
+        this.toastService.success("Authentication Success", "Logging in please wait");
 
-				const returnUrl = this.route.snapshot.queryParamMap.get("returnUrl");
+        const returnUrl = this.route.snapshot.queryParamMap.get("returnUrl");
 
-				setTimeout((router: Router) => {
-					this.router.navigate([returnUrl || "/"]);
-				}, 1500);
+        setTimeout((router: Router) => {
+          this.router.navigate([returnUrl || "/"]);
+        }, 1500);
 
-				this.router.navigate(["/"]);
-			})
-			.catch((err) => {
-				this.toastService.error("Authentication Failed", "Invalid Credentials, Please Check your credentials");
-			});
+        this.router.navigate(["/"]);
+      }, (err) => {
+        this.toastService.error("Authentication Failed", "Invalid Credentials, Please Check your credentials");
+      })
+     
 	}
 
 	signInWithGoogle() {

@@ -91,11 +91,8 @@ export class ProductService {
     );
     
   }
-  getProductById(key: string): ProductF {
-    this.getProduct(key).subscribe((hero) => { this.product = hero;  });
-    return this.product;
-	 	}
-
+   
+   
 	updateProduct(data: ProductF) {
 	//	this.products.update(data.$key, data);
 	}
