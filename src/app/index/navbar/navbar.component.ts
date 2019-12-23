@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit {
   }
 
   updateTheme(theme: string) {
+    console.log(theme);
     this.themeService.updateThemeUrl(theme);
   }
 }

@@ -58,13 +58,14 @@ export class AuthService {
     
   }
   isLoggedIn(): boolean {
-    if (this.userDetails !== null) {
+    if (this.userLogin !== null) {
       return true;
     }
   }
 
   logout() {
     this.loggedUser = null;
+    this.userLogin = null;
     this.firebaseAuth.auth.signOut().then(res => this.router.navigate(["/"]));
   }
 

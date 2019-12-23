@@ -1,7 +1,20 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Angular-ShoppingCart-master"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\index",
+    "\\src\\app\\index\\footer",
+    "\\src\\app\\index\\login",
+    "\\src\\app\\index\\navbar",
+    "\\src\\app\\shared",
+    "\\src\\app\\shared\\animations",
+    "\\src\\app\\shared\\components",
+    "\\src\\assets",
+    "\\src\\assets\\icons",
+    "\\src\\assets\\theme",
+    "\\src\\environments"
   ],
+  "SelectedNode": "\\src\\app\\index\\navbar\\navbar.component.ts",
   "PreviewInSolutionExplorer": false
 }
