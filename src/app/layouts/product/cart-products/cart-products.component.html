@@ -35,14 +35,21 @@
                       <a [routerLink]="['/products/product', product.id]">{{ product.name_en }}</a>
                     </strong>
                   </h5>
-
                   <!--Description-->
-                  <p class="card-text">{{ product.name_ar }}
-                  </p>
+                
+                    <div class="col-md-6 mb-6" style="margin-left:22%">
 
+                      <input type="number" name="quantity" class="form-control" [(ngModel)]="product.quantity" placeholder="1" (click)="updatequantity(product)"
+                             id="quantity" value="" required>
+                      <div class="invalid-feedback">
+                        Valid first name is required.
+                      </div>
+                    </div>
+                 
                   <!--Card footer-->
                   <div class="card-footer">
-                    <span class="left">EGP{{ product.price }}</span>
+
+                    <span class="left">EGP {{ product.price }}</span>
                     <span class="right">
                       <a placement="top" mdbTooltip="Quick Look" container="body" [routerLink]="['/products/product', product.id]">
                         <i class="fa fa-eye"></i>

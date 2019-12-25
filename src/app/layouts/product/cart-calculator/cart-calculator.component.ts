@@ -19,7 +19,7 @@ export class CartCalculatorComponent implements OnInit, OnChanges {
 		const products: ProductF[] = dataChanges.currentValue;
 		this.totalValue = 0;
 		products.forEach((product) => {
-			this.totalValue += product.price;
+          this.totalValue += product.price * product.quantity;
 		});
 	}
 

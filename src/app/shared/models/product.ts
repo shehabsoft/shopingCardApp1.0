@@ -8,6 +8,7 @@ export class Product {
   productImageUrl: string;
   productAdded: number;
   productQuatity: number;
+  quantity: number;
   ratings: number;
   favourite: boolean;
   productSeller: string;

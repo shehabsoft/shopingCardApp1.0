@@ -21,8 +21,8 @@ export class ProductsComponent implements OnInit {
 
 		this.checkoutProducts = products;
 
-		products.forEach((product) => {
-			this.totalPrice += product.price;
+      products.forEach((product) => {
+        this.totalPrice += product.price * product.quantity;
 		});
 	}
 

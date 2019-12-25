@@ -177,8 +177,8 @@ export class ProductService {
 
 	// Adding new Product to cart db if logged in else localStorage
 	addToCart(data: ProductF): void {
-		let a: ProductF[];
-
+      let a: ProductF[];
+      data.quantity = 1;
 		a = JSON.parse(localStorage.getItem('avct_item')) || [];
 
 		a.push(data);
@@ -210,8 +210,19 @@ export class ProductService {
 		const products: ProductF[] = JSON.parse(localStorage.getItem('avct_item')) || [];
 
 		return products;
-	}
+  }
+  updateQuantityOnLocalStorage(product: ProductF) {
+    const products = this.getLocalCartProducts();
+    for (let i = 0; i < products.length; i++) {
+      if (product.id === products[i].id) {
+        products[i].quantity = product.quantity;
+      }
+    }
+    localStorage.setItem('avct_item', JSON.stringify(products));
 
+    this.calculateLocalCartProdCounts();
+
+  }
 	// returning LocalCarts Product Count
 	calculateLocalCartProdCounts() {
 		this.navbarCartCount = this.getLocalCartProducts().length;

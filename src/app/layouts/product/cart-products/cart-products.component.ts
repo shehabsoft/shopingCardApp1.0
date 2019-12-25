@@ -26,9 +26,13 @@ export class CartProductsComponent implements OnInit {
 
 		// Recalling
 		this.getCartProduct();
-	}
-
+  }
+  updatequantity(product: ProductF) {
+    console.log("update" + product.quantity);
+    this.productService.updateQuantityOnLocalStorage(product);
+  }
 	getCartProduct() {
-		this.cartProducts = this.productService.getLocalCartProducts();
+      this.cartProducts = this.productService.getLocalCartProducts();
+      console.log(this.cartProducts);
 	}
 }
